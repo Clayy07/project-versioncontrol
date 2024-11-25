@@ -20,4 +20,4 @@ def run_docker_container():
 if __name__ == "__main__":
     build_docker_image()
     run_docker_container()
-    print("Aplikasi berjalan di http://localhost:5000")
+    print("program ini  akan berjalan di http://localhost:5000")
