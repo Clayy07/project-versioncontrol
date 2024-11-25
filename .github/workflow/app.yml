@@ -1,4 +1,4 @@
-name: Automation Deployment menggunakan Flask dan Docker
+name: Automation Deployment menggunakan Flask  Docker
 
 on:
   push:
