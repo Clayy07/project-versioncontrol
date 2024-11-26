@@ -32,8 +32,8 @@ jobs:
       # Step 4: Install dependencies dan uji aplikasi Flask
       - name: Install Dependencies
         run: |
-          py -m pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
       - name: Run Tests
         run: python -m unittest discover tests
 
