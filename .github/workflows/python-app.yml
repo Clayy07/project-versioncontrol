@@ -37,7 +37,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 5: Log in to Docker Hub (if pushing images to Docker Hub)
+      # Step 5: Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -48,18 +48,35 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t flask_app:${{ github.sha }} .
+        id: build_image
 
-      # Step 7: Tag Docker image (for pushing to Docker Hub)
+      # Step 7: Output image build information
+      - name: Output Image Build Info
+        run: |
+          echo "Flask app image built with tag: flask_app:${{ github.sha }}"
+          docker images flask_app:${{ github.sha }}
+        id: output_image_info
+
+      # Step 8: Tag Docker image
       - name: Tag Docker Image
         run: |
           docker tag flask_app:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/flask_app:latest
+        id: tag_image
 
-      # Step 8: Push Docker image to Docker Hub (optional)
+      # Step 9: Output tag information
+      - name: Output Docker Image Tag Info
+        run: |
+          echo "Docker image tagged as: ${{ secrets.DOCKER_USERNAME }}/flask_app:latest"
+        id: output_tag_info
+
+      # Step 10: Push Docker image to Docker Hub
       - name: Push Docker Image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/flask_app:latest
+        id: push_image
 
-      # Step 9: Deploy container (local or remote server)
-      - name: Deploy Docker Container
+      # Step 11: Output push status
+      - name: Output Docker Image Push Status
         run: |
-          docker run -d -p 5000:5000 ${{ secrets.DOCKER_USERNAME }}/flask_app:latest
+          echo "Docker image pushed successfully to Docker Hub"
+        id: output_push_status
