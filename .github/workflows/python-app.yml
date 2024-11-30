@@ -1,4 +1,4 @@
-name: Flask App Deployment
+name: Flask App
 
 on:
   push:
@@ -80,3 +80,16 @@ jobs:
         run: |
           echo "Docker image pushed successfully to Docker Hub"
         id: output_push_status
+
+      # Step 12: Save Docker Image as Artifact (tarball)
+      - name: Save Docker Image as Artifact (tarball)
+        run: |
+          docker save -o flask_app_${{ github.sha }}.tar flask_app:${{ github.sha }}
+        id: save_image_tar
+
+      # Step 13: Upload Docker image artifact
+      - name: Upload Docker Image Tarball Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-image
+          path: flask_app_${{ github.sha }}.tar
