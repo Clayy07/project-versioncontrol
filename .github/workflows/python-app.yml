@@ -80,8 +80,8 @@ jobs:
           echo "Docker image pushed successfully to Docker Hub"
         id: output_push_status
 
-      # Step 12: Save Docker Image as Artifact (tarball)
-      - name: Save Docker Image as Artifact (tarball)
+      # Step 12: Save Docker Image as Artifact tarball
+      - name: Save Docker Image as Artifact tarball
         run: |
           docker save -o flask_app_${{ github.sha }}.tar flask_app:${{ github.sha }}
         id: save_image_tar
