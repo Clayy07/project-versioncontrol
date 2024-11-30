@@ -86,7 +86,7 @@ jobs:
           docker save -o flask_app_${{ github.sha }}.tar flask_app:${{ github.sha }}
         id: save_image_tar
 
-      # Step 13: Upload Docker image artifact
+      # Step 13: Upload Docker image Artifact
       - name: Upload Docker Image Tarball Artifact
         uses: actions/upload-artifact@v4
         with:
